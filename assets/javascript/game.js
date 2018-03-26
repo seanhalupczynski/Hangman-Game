@@ -1,18 +1,29 @@
-// Initial variable definition
-// Wordbank
-var wordBank = ["pirate"];  
-// Lived count  
-var lived;
-// Hanged count
-var hanged;
-// Number of guesses left
-var numberOfGuesses;
-// Variable for the dashes
-var startGame = [];
-// Random word selection
-var mysteryWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 
-// Game start up
+// Loading the game in the window
+window.onload = function gameLoad(event) {
+var loadGame = event.onload;
+var wordBank = ["pirate"];
+var lived = 0;
+var hanged = 0;
+var numberOfGuesses = 10;
+var mysteryWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+var dashes;
+
+    if (loadGame = true) {
+
+        document.getElementById("wordLetters").forEach(mysteryWord.length).innerHTML = "_ "; 
+
+        // Display number of guess
+        document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
+
+        // Display wins
+        document.getElementById("lived").innerHTML = "Times lived: " + live;
+
+        // Display losses
+        document.getElementById("hanged").innerHTML = "Times hanged: " + hang;
+
+    };
+};
   
 
 // User enters a letter
@@ -35,14 +46,4 @@ document.onkeyup = function userGuess(event) {
 
     // Display guessed letters
     document.getElementById("lettersGuessed").innerHTML = guessedLetters;    
-}
-
-
-// Display number of guess
-document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
-
-// Display wins
-document.getElementById("lived").innerHTML = "Times lived: " + live;
-
-// Display losses
-document.getElementById("hanged").innerHTML = "Times hanged: " + hang;
+};
