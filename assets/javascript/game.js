@@ -1,7 +1,7 @@
 // var firstGame = true;
 var wordBank = ["pirate", "treasure"];
-var lived = 0;
-var hanged = 0;
+var lived;
+var hanged;
 var mysteryWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 var mysteryWordArray = [];
 // var mysteryWordIndex = mysteryWord.length;
@@ -10,13 +10,18 @@ var guessedLetters = [];
 var alphabet = "abcdefghijklmnopqurstuvwxyz";
 var validGuess = alphabet.split("");
 var correctGuess = [];
-var firstGame = false;
-var hangedFinish = false;
-var livedFinish = false;
+// var firstGame = false;
+// var hangedFinish = false;
+// var livedFinish = false;
+var livedPlayAgain;
+var hangedPlayAgain;
 
 //Set up start of game
 
 window.addEventListener("load", function display () {
+
+    lived = 0;
+    hanged = 0;
 
     document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
     document.getElementById("lived").innerHTML = "Times lived: " + lived;
@@ -95,7 +100,7 @@ window.addEventListener("keypress", function reduceGuessCount (event) {
 });
 
 
-// Determining and documenting win or loss
+// Player won, ask to keep playing
 window.addEventListener("keypress", function lived (event) {
 
     var letterGuess = event.key;
@@ -106,25 +111,62 @@ window.addEventListener("keypress", function lived (event) {
     }
 
     if (livedPlayAgain === true){
-    var lived = lived + 1;
-    document.getElementById("lived").innerHTML = "Times lived: " + lived;
+    lived = lived + 1;
     }
     else {
         return false;
     };
+    document.getElementById("lived").innerHTML = "Times lived: " + lived;
 });
 
+// Reset game after win
+window.addEventListener("click", function addLived() {
+    
+    if (lived.livedPlayAgain === true) {
+        lived = lived + 1;
+    }
+    else {
+        return false;
+    };
+
+    document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
+    document.getElementById("lived").innerHTML = "Times lived: " + lived;
+    document.getElementById("hanged").innerHTML = "Times hanged: " + hanged;
+
+    for (i=0; i<mysteryWord.length; i++) {
+        mysteryWordArray[i] = "_ ";
+    };
+
+    document.getElementById("wordLetters").innerHTML = mysteryWordArray;
+});
+
+// Player lossed, ask to keep playing
 window.addEventListener("keypress", function hanged (event) {
+
     if (correctGuess.length != mysteryWord.length && numberOfGuesses == 0) {
         
     var hangedPlayAgain = confirm("You have been hanged...Do you believe in reincarnation?");
     };
+});
 
-    if (hangedPlayAgain === true) {
-    var hanged = hanged + 1;
-    document.getElementById("hanged").innerHTML = "Times hanged: " + hanged;
+// Reset game after loss
+window.addEventListener("click", function addHanged() {
+    
+    if (hanged.hangedPlayAgain === true) {
+        hanged = hanged + 1;
     }
     else {
         return false;
     };
+
+    document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
+    document.getElementById("lived").innerHTML = "Times lived: " + lived;
+    document.getElementById("hanged").innerHTML = "Times hanged: " + hanged;
+
+    for (i=0; i<mysteryWord.length; i++) {
+        mysteryWordArray[i] = "_ ";
+    };
+
+    document.getElementById("wordLetters").innerHTML = mysteryWordArray;
+    document.getElementById("hanged").innerHTML = "Times hanged: " + hanged;
 });
