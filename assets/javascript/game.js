@@ -3,86 +3,85 @@ var wordBank = ["pirate", "treasure"];
 var lived = 0;
 var hanged = 0;
 var mysteryWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-var mysteryWordLength = mysteryWord.length;
+var mysteryWordArray = [];
+// var mysteryWordIndex = mysteryWord.length;
 var numberOfGuesses = mysteryWord.length;
-var wordUnderscore = "";
-var mysteryWordArray = mysteryWord.split("");
 var guessedLetters = [];
 var alphabet = "abcdefghijklmnopqurstuvwxyz";
 var validGuess = alphabet.split("");
 var correctGuess = [];
+var firstGame = false;
+var hangedFinish = false;
+var livedFinish = false;
 
-//Set word to dashes
-function setUnderscore(mysteryWordArray) {
-    var mysteryWordArray = mysteryWord.split("");
+//Set up start of game
 
-    for (i=0; i<mysteryWordArray.length; i++) {
+window.addEventListener("load", function display () {
 
-        var underscore = wordUnderscore + "_ ";
-        document.getElementById("wordLetters").innerHTML = underscores; 
-    }
-};
+    document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
+    document.getElementById("lived").innerHTML = "Times lived: " + lived;
+    document.getElementById("hanged").innerHTML = "Times hanged: " + hanged;
 
-// Is the guess valid?
-function guessValid (event) {
-
-    var letterGuess = event.key;
-    var guessIsValid = false;
-
-    if (validGuess.includes(letterGuess)) {
-        guessIsValid = true;
-    }
-};
-
-//Add the guess to an array to show guesses
-function addGuess (event) {
-
-    var letterGuess = event.key;
-
-    while (numberOfGuesses > 0) {
-
-        if (guessValid.guessIsValid = true) {
-
-            guessedLetters.push(letterGuess);
-
-        };
+    for (i=0; i<mysteryWord.length; i++) {
+        mysteryWordArray[i] = "_ ";
     };
-};
+    document.getElementById("wordLetters").innerHTML = mysteryWordArray;
 
-// Display guessed letters
-function displayGuess (event) {
+});
+
+// Add the guess to an array to show guesses
+document.onkeypress = function lettersGuessed (event) {
 
     var letterGuess = event.key;
+    var invalidGuessCheck = validGuess.indexOf(letterGuess);
 
-    if (guessedLetters.includes(letterGuess)) {
-
+    if (invalidGuessCheck != -1 && guessedLetters.includes(letterGuess)){
+        
         return false;
-
     }
-
     else {
 
+        guessedLetters.push(letterGuess);
+        console.log(guessedLetters);
         document.getElementById("lettersGuessed").innerHTML = guessedLetters;
-    }
-};
-
-// Handling a correct guess
-function correctGuess (event) {
-
-    var letterGuess = event.key;
-
-    if (correctGuess.includes(letterGuess)) {
-
-        // Display guess in mystery word
     };
 };
 
-// Reducing guess count for incorrect guesses
-function guessCount (event) {
+
+// Correct Guess
+window.addEventListener("keypress", function guessIsCorrect (event) {
+
+    var letterGuess = event.key;
+    var wordIndex = mysteryWord.indexOf(letterGuess);
+    var mysteryWordArrayPositions = [];
+    
+    for (i=0; i<mysteryWord.length; i++) {
+        if (mysteryWord[i]===letterGuess) {
+        // if (wordIndex != -1) {
+        // if (correctGuess.includes(letterGuess)) {
+            // correctGuess.push(letterGuess);
+            mysteryWordArrayPositions.push[i];
+            console.log(mysteryWordArray);
+            console.log(mysteryWordArrayPositions);
+            mysteryWordArray[i] = letterGuess;
+            document.getElementById("wordLetters").innerHTML = mysteryWordArray[i];
+
+        };
+
+            // if (i==mysteryWord[i]) {
+            //     mysteryWordArray.push(letterGuess);
+    };
+
+    // };
+    // document.getElementById("wordLetters").innerHTML = correctGuess
+});
+ 
+// Reduce guess count
+window.addEventListener("keypress", function reduceGuessCount (event) {
 
     var letterGuess = event.key;
 
-    if (correctGuess.includes(letterGuess)) {
+    if (mysteryWord.includes(letterGuess)) {
         
         return false;
     }
@@ -93,35 +92,39 @@ function guessCount (event) {
     };
 
     document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
-};
+});
 
-// Win or loss
-function livedOrHanged (event) {
-    
+
+// Determining and documenting win or loss
+window.addEventListener("keypress", function lived (event) {
+
     var letterGuess = event.key;
 
-    if (correctGuess.length == mysteryWordArray.length && numberOfGuesses > 0) {
+    if (correctGuess.length == mysteryWord.length && numberOfGuesses > 0) {
 
-        lived = lived + 1;
-        document.getElementById("lived").innerHTML = "Times lived: " + lived;
-        confirm("You lived!!! Want to play again?");
+    var livedPlayAgain = confirm("You lived!!! Want to play again?");
     }
 
+    if (livedPlayAgain === true){
+    var lived = lived + 1;
+    document.getElementById("lived").innerHTML = "Times lived: " + lived;
+    }
     else {
-        
-        hanged = hanged + 1;
-        document.getElementById("hanged").innerHTML = "Times hanged" + hanged;
-        confirm("You have been hanged...Do you believe in reincarnation?")
+        return false;
     };
-};
+});
 
+window.addEventListener("keypress", function hanged (event) {
+    if (correctGuess.length != mysteryWord.length && numberOfGuesses == 0) {
+        
+    var hangedPlayAgain = confirm("You have been hanged...Do you believe in reincarnation?");
+    };
 
-// Display number of guess
-document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
-    
-// Display wins
-document.getElementById("lived").innerHTML = "Times lived: " + lived;
-    
-// Display losses
-document.getElementById("hanged").innerHTML = "Times hanged: " + hanged;
-    
+    if (hangedPlayAgain === true) {
+    var hanged = hanged + 1;
+    document.getElementById("hanged").innerHTML = "Times hanged: " + hanged;
+    }
+    else {
+        return false;
+    };
+});
