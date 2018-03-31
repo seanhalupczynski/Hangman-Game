@@ -66,10 +66,10 @@ window.addEventListener("keypress", function guessIsCorrect (event) {
         // if (correctGuess.includes(letterGuess)) {
             // correctGuess.push(letterGuess);
             mysteryWordArrayPositions.push[i];
-            console.log(mysteryWordArray);
-            console.log(mysteryWordArrayPositions);
             mysteryWordArray[i] = letterGuess;
             document.getElementById("wordLetters").innerHTML = mysteryWordArray[i];
+            console.log(mysteryWordArray);
+            console.log(mysteryWordArrayPositions);
 
         };
 
@@ -79,14 +79,14 @@ window.addEventListener("keypress", function guessIsCorrect (event) {
 
     // };
     // document.getElementById("wordLetters").innerHTML = correctGuess
-});
+});//Need to fix the underscores being removed and fill the mystery word properly as the correct letter is guessed
  
 // Reduce guess count
 window.addEventListener("keypress", function reduceGuessCount (event) {
 
     var letterGuess = event.key;
 
-    if (mysteryWord.includes(letterGuess)) {
+    if (mysteryWord.includes(letterGuess)) {  //need to add a condtion to prevent clicking the same letter and reducing the count
         
         return false;
     }
@@ -138,7 +138,7 @@ window.addEventListener("click", function addLived() {
     };
 
     document.getElementById("wordLetters").innerHTML = mysteryWordArray;
-});
+}); //Currently the game does not reset
 
 // Player lossed, ask to keep playing
 window.addEventListener("keypress", function hanged (event) {
@@ -169,4 +169,4 @@ window.addEventListener("click", function addHanged() {
 
     document.getElementById("wordLetters").innerHTML = mysteryWordArray;
     document.getElementById("hanged").innerHTML = "Times hanged: " + hanged;
-});
+}); //Currently the game does not reset
