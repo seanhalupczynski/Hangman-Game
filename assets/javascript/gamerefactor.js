@@ -56,6 +56,9 @@ document.onkeypress = function Guess() {
         mysterWordCorrectGuessArray.push(guess);
         console.log(mysterWordCorrectGuessArray);
         // Display correct guess
+        // mysteryWordArray.forEach(element => {
+            
+        // });
     };
 
     // Reduce guess count for wrong guesses
