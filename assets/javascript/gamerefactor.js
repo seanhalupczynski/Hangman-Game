@@ -56,9 +56,12 @@ document.onkeypress = function Guess() {
         mysterWordCorrectGuessArray.push(guess);
         console.log(mysterWordCorrectGuessArray);
         // Display correct guess
-        // mysteryWordArray.forEach(element => {
-            
-        // });
+        for (i=0; i<mysteryWordArray.length; i++) {
+            if (mysteryWordArray[i] == guess) {
+                mysteryWordUnderscores[i] == guess;
+                document.getElementById("wordLetters").innerHTML = mysteryWordUnderscores;
+            };
+        };
     };
 
     // Reduce guess count for wrong guesses
@@ -66,6 +69,7 @@ document.onkeypress = function Guess() {
             numberOfGuesses--;
             document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
     };
+
 
 };
  
