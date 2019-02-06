@@ -1,7 +1,7 @@
 // Declaring global variables
 var wordBank = ["pirate", "treasure"];
 var mysteryWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-var mysteryWordArray = mysteryWord.split("");
+var mysteryWordArr = mysteryWord.split("");
 var mysterWordCorrectGuessArray = [];
 var mysteryWordUnderscores = [];
 var alphabet = "abcdefghijklmnopqurstuvwxyz";
@@ -24,14 +24,14 @@ $("#lived").text("Lived :" + lived);
 $("#hanged").text("Hanged: " + hanged);
 // Display underscores for myster word
 for (i=0; i<mysteryWord.length; i++) {
-    mysteryWord.length[i] = "_ ";
+    $("#wordLetters").text(mysteryWord.length[i] = "_ ");
 };
-console.log(mysteryWord.length[i]);
+console.log(mysteryWordArr.length[i]);
 // $("#wordLetters").text(mysteryWordUnderscores);
 
 function resetGame() {
     var mysteryWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-    var mysteryWordArray = mysteryWord.split("");
+    var mysteryWordArr = mysteryWord.split("");
     var mysterWordCorrectGuessArray = [];
     var mysteryWordUnderscores = [];
     var guessedLettersArray = [];
@@ -41,7 +41,7 @@ function resetGame() {
     $("#lived").text("Lived :" + lived);
     $("#hanged").text("Hanged: " + hanged);
     for (i=0; i<mysteryWord.length; i++) {
-        mysteryWord.length[i] = "_ ";
+        $("#wordLetters").text(mysteryWord.length[i] = "_ ");
     };
     $("lettersGuessed").text(guessedLettersArray);
 
@@ -61,6 +61,7 @@ document.onkeypress = function Guess() {
 
     // Document the guessed letter
     if (guessIsValid === true && guessedLettersArray.includes(guess)) {
+        alert("You already guessed that letter.")
         return false;
     }
     else{
@@ -70,23 +71,23 @@ document.onkeypress = function Guess() {
     };
 
     // Document if the guess is correct
-    if (guessIsValid === true && mysteryWordArray.includes(guess)) {
+    if (guessIsValid === true && mysteryWordArr.includes(guess)) {
         mysterWordCorrectGuessArray.push(guess);
         console.log(mysterWordCorrectGuessArray);
         // Display correct guess
         for (i=0; i<mysteryWord.length; i++) {
             if (mysteryWord.length[i] == guess) {
-                console.log(mysteryWordArray);
+                console.log(mysteryWordArr);
                 mysteryWord.length[i] == guess;
                 document.getElementById("wordLetters").innerHTML = mysteryWord.length[i].join(" ");
                 console.log(mysteryWordUnderscores);
-                console.log(mysteryWordArray);
+                console.log(mysteryWordArr);
             };
         };
     };
 
     // Reduce guess count for wrong guesses
-    if (guessIsValid === true && mysteryWordArray.indexOf(guess) === -1) {
+    if (guessIsValid === true && mysteryWordArr.indexOf(guess) === -1) {
             numberOfGuesses--;
             document.getElementById("guessCount").innerHTML = "Number of guesses left: " + numberOfGuesses;
     };
@@ -99,13 +100,13 @@ document.onkeypress = function Guess() {
         playAgain = confirm("Do you believe in reincarnation? Play again.");
         if(playAgain === true) {
             resetGame(
-                mysteryWord, 
-                mysteryWordArray, 
-                mysterWordCorrectGuessArray, 
-                mysteryWordUnderscores, 
-                guessedLettersArray,
-                guessIsCorrectArray,
-                numberOfGuesses = 10   
+                // mysteryWord, 
+                // mysteryWordArr, 
+                // mysterWordCorrectGuessArray, 
+                // mysteryWordUnderscores, 
+                // guessedLettersArray,
+                // guessIsCorrectArray,
+                // numberOfGuesses = 10   
             );
         }
         else {
@@ -114,20 +115,20 @@ document.onkeypress = function Guess() {
     };
 
     //Winning
-    if (mysterWordCorrectGuessArray.indexOf(mysteryWordArray) !== -1 && numberOfGuesses > 0) {
+    if (mysterWordCorrectGuessArray.indexOf(mysteryWordArr) !== -1 && numberOfGuesses > 0) {
         lived++
         document.getElementById("lived").innerHTML = "Lived: " + lived;
         alert("YOU HAVE BEEN SAVED!!!");
         playAgain = confirm("Did you get caught again pirating? Play again.");
         if (playAgain === true) {
             resetGame(
-                mysteryWord, 
-                mysteryWordArray, 
-                mysterWordCorrectGuessArray, 
-                mysteryWordUnderscores, 
-                guessedLettersArray,
-                guessIsCorrectArray,
-                numberOfGuesses = 10   
+                // mysteryWord, 
+                // mysteryWordArr, 
+                // mysterWordCorrectGuessArray, 
+                // mysteryWordUnderscores, 
+                // guessedLettersArray,
+                // guessIsCorrectArray,
+                // numberOfGuesses = 10   
             );
         }
         else {

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hangman</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+    
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <!-- Jumbotron fo r Hangman -->
+    <div class="jumbotron">
+        <div class="container">
+          <!-- Hangman Header -->
+            <div class="row">
+                <h2>
+                    Welcome to the gallows. Will you get hanged?
+                </h2>
+            </div>
+            <br>
+            <div class="row">
+                <h3>Guess a letter.</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel header">
+                    <h4>
+                        Letters already used:
+                    </h4>
+                </div>
+                <div class="panel body">
+                    <!-- Letters chosen will go here. -->
+                    <h5 id="lettersGuessed" class="text-wrap">
+
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel header">
+                    <h4>
+                        Mystery Word
+                    </h4>
+                </div>
+                <div class="panel body">
+                    <!-- Dashes and correct guesses go here -->
+                    <h5 id="wordLetters">
+    
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5 id="guessCount">
+                Number of guesses left:
+            </h5>
+        </div>
+        <div>
+            <h5 id="lived">
+                Lived:
+            </h5>
+        </div>
+        <div class="row">
+            <h5 id="hanged">
+                Hanged:
+            </h5>
+        </div>
+    </div>
+    <script type="text/javascript" src="assets/javascript/game.js">
+    
+    </script>
+    </body>
+</html>
