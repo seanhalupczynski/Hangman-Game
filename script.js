@@ -14,7 +14,6 @@ $(document).ready(function(){
     var letters = alphabet.split("");
     var guessedLetters = [];
 
-    console.log(letters);
     console.log(word);
 
     // Initial display function
@@ -33,37 +32,20 @@ $(document).ready(function(){
         if (gameStarted === false){
             gameStarted = true;
             display();
-        }
-    };
-
-    // Click the start button to begin the game
-    document.getElementById("start-button").onclick = function(){
-        for (i=0; i<word.length; i++){
-            blankedWord.push("_ ");
-        };
-        gameIsStarted();
-    };
-
-    // Check that the guess is valid
-    function validGuessCheck(guess){
-        if (letters.indexOf(guess) === -1){
-            console.log(letters.indexOf(guess));
-            alert("That is not a valid guess!");
         };
     };
 
-    // Function to handle winning
-    function gameWon(){
+
+    function gameFinished(){
+        // Function to handle winning
         if(blankedWord.indexOf("_ " === -1)){
             setTimeout = 100;
             alert("You won!");
             wins++;
-        }
-    };
+        };
 
-    // Function to handle losing
-    function gameLost(){
-        if(blankedWord.indexOf != -1 && remainingGuesses === 0){
+        // Function to handle losing
+        if(blankedWord.indexOf("_ ") != -1 && remainingGuesses === 0){
             setTimeout = 100;
             alert("You lost :(");
             losses++
@@ -83,39 +65,53 @@ $(document).ready(function(){
 
     // Function to handle the user's guess
     function userGuess(guess){
-        // validGuessCheck(guess);
-        if(mysteryWord.includes(guess)){
-            positions = [];
-            for(i=0; i<mysteryWord.length; i++){
-                if(mysteryWord[i] === guess){
-                    positions.push[i];
-                };
-            };
-            for(i=0; i<positions.length; i++){
-                blankedWord[positions[i]] = guess;
-            };
+        // Check for previously guessed letter
+        if(guessedLetters.includes(guess)){
+            alert("You already guessed that letter.");
         }
         else{
-            if(guessedLetters.includes(guess)){
-                alert("You already guessed that letter.");
-            }
+
+            if(mysteryWord.includes(guess)){
+                positions = [];
+                for(i=0; i<mysteryWord.length; i++){
+                    if(mysteryWord[i] === guess){
+                        positions.push(i);
+                    };
+                };
+                for(i=0; i<positions.length; i++){
+                    blankedWord[positions[i]] = guess;
+                };
+                letters.splice(letters.indexOf(guess), 1);
+                guessedLetters.push(guess);
+            }    
+            // Check that the guess is a letter
             else if(letters.indexOf(guess) === -1){
                 console.log(letters.indexOf(guess));
                 alert("That is not a valid guess!");
             }
+            // Reduce the remaining guess count
             else{
                 remainingGuesses--;
                 guessedLetters.push(guess)
+                letters.splice(letters.indexOf(guess), 1);
             };
         };
         updateDisplay(guess);
+        gameFinished();
     };
-
-    // Taking the user's guess
-    window.addEventListener("keypress", function(event){
-        guess = event.key;
-        userGuess(guess);
-        // gameWon();
-        // gameLost();
-    });
+        
+    // Click the start button to begin the game
+    document.getElementById("start-button").onclick = function(){
+        for (i=0; i<word.length; i++){
+            blankedWord.push("_ ");
+        };
+        gameIsStarted();
+        // Taking the user's guess
+        window.addEventListener("keypress", function(event){
+            guess = event.key;
+            userGuess(guess);
+        });
+    
+    };
+    
 });
