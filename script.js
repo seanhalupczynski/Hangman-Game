@@ -35,21 +35,25 @@ $(document).ready(function(){
         };
     };
 
-
-    function gameFinished(){
-        // Function to handle winning
-        if(blankedWord.indexOf("_ " === -1)){
+    function endGame(guess){
+        if(blankedWord.indexOf("_ ") === -1 && remainingGuesses > 0){
+            updateDisplay(guess);
             setTimeout = 100;
-            alert("You won!");
             wins++;
-        };
+            alert("YOU WON!");
 
-        // Function to handle losing
-        if(blankedWord.indexOf("_ ") != -1 && remainingGuesses === 0){
-            setTimeout = 100;
-            alert("You lost :(");
-            losses++
         };
+        if(blankedWord.indexOf("_ " != -1) && remainingGuesses === 0){
+            updateDisplay(guess);
+            setTimeout = 100;
+            losses++;
+            alert("You lost :(");
+
+        };
+    };
+
+    function playAgainModal(){
+
     };
 
     // Function to update the display
@@ -95,9 +99,9 @@ $(document).ready(function(){
                 guessedLetters.push(guess)
                 letters.splice(letters.indexOf(guess), 1);
             };
+            endGame(guess);
         };
         updateDisplay(guess);
-        gameFinished();
     };
         
     // Click the start button to begin the game
@@ -107,7 +111,7 @@ $(document).ready(function(){
         };
         gameIsStarted();
         // Taking the user's guess
-        window.addEventListener("keypress", function(event){
+        window.addEventListener("keyup", function(event){
             guess = event.key;
             userGuess(guess);
         });
