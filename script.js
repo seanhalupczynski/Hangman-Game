@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var wordArray = ["pirate", "treasure"];
+    var wordArray = ["pirate", "treasure", "cannons"];
     var word = wordArray[Math.floor(Math.random()*wordArray.length)];
     var mysteryWord = word.split("");
     var blankedWord = [];
@@ -18,6 +18,10 @@ $(document).ready(function(){
 
     // Initial display function
     function display(){
+        console.log("displaying the game")
+        for (i=0; i<word.length; i++){
+            blankedWord.push("_ ");
+        };
         document.getElementById("available-letters").innerHTML = `Available letters: ${letters.join(" ")}`;
         document.getElementById("wins").innerHTML = `Wins: ${wins}`;
         document.getElementById("losses").innerHTML = `Losses: ${losses}`;
@@ -26,6 +30,21 @@ $(document).ready(function(){
         document.getElementById("mystery-word").innerHTML = `Mystery word: ${blankedWord.join(" ")}`;
         document.getElementById("start-button").disabled = true;
     };
+
+    // Resetting game variables
+    function resetGameVariables(){
+        console.log("variables being reset")
+        wordArray = ["pirate", "treasure"];
+        word = wordArray[Math.floor(Math.random()*wordArray.length)];
+        mysteryWord = word.split("");
+        blankedWord = [];
+        guesses = 6;
+        remainingGuesses = guesses;
+        alphabet = "abcdefghijklmnopqrstuvwxyz";
+        letters = alphabet.split("");
+        guessedLetters = [];
+    };
+
 
     // Indicate that the game has started
     function gameIsStarted(){
@@ -41,26 +60,37 @@ $(document).ready(function(){
             setTimeout = 100;
             wins++;
             alert("YOU WON!");
-
+            if(confirm("Play again?")){
+                console.log("new game requested")
+                resetGameVariables();
+                display();
+            };
         };
         if(blankedWord.indexOf("_ " != -1) && remainingGuesses === 0){
             updateDisplay(guess);
             setTimeout = 100;
             losses++;
             alert("You lost :(");
-
+            if(confirm("Play again?")){
+                console.log("new game requested")
+                resetGameVariables();
+                display();
+            };
         };
     };
 
-    function playAgainModal(){
-
+    function incrementWins(){
+        wins++;
     };
 
+    function incrementLosses(){
+        losses++;
+    };
     // Function to update the display
     function updateDisplay(guess){
         document.getElementById("available-letters").innerHTML = `Available letters: ${letters.join(" ")}`;
-        document.getElementById("wins").innerHTML = `Wins: ${wins}`;
-        document.getElementById("losses").innerHTML = `Losses: ${losses}`;
+        // document.getElementById("wins").innerHTML = `Wins: ${wins}`;
+        // document.getElementById("losses").innerHTML = `Losses: ${losses}`;
         document.getElementById("remaining-guesses").innerHTML = `Remaining Guesses: ${remainingGuesses}`;
         document.getElementById("guessed-letters").innerHTML = `Letters guessed: ${guessedLetters.join(" ")}`;
         document.getElementById("mystery-word").innerHTML = `Mystery word: ${blankedWord.join(" ")}`;
@@ -106,9 +136,6 @@ $(document).ready(function(){
         
     // Click the start button to begin the game
     document.getElementById("start-button").onclick = function(){
-        for (i=0; i<word.length; i++){
-            blankedWord.push("_ ");
-        };
         gameIsStarted();
         // Taking the user's guess
         window.addEventListener("keyup", function(event){
