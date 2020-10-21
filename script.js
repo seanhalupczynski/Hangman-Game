@@ -54,11 +54,11 @@ $(document).ready(function(){
         };
     };
 
-    function endGame(guess){
+    function endGame(playerGuess){
         if(blankedWord.indexOf("_ ") === -1 && remainingGuesses > 0){
             updateDisplay(guess);
             setTimeout = 100;
-            wins++;
+            wins+;
             alert("YOU WON!");
             if(confirm("Play again?")){
                 console.log("new game requested")
@@ -79,13 +79,6 @@ $(document).ready(function(){
         };
     };
 
-    function incrementWins(){
-        wins++;
-    };
-
-    function incrementLosses(){
-        losses++;
-    };
     // Function to update the display
     function updateDisplay(guess){
         document.getElementById("available-letters").innerHTML = `Available letters: ${letters.join(" ")}`;
@@ -140,8 +133,8 @@ $(document).ready(function(){
         // Taking the user's guess
         window.addEventListener("keyup", function(event){
             guess = event.key;
-            userGuess(guess);
         });
+        userGuess(guess);
     
     };
     
